@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MealsManager.API.Controllers
 {
@@ -15,6 +16,7 @@ namespace MealsManager.API.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [EnableCors("AllowSpecificOriginPolicy")]
         public async Task<ActionResult<string>> GetHealthCheckAsync()
         {
             return "Healthy";
