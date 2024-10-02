@@ -2,12 +2,12 @@
 {
     public class CookingStep
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public string Description { get; set; }
         public string? ImageURL { get; set; }
 
         public CookingStepType Type { get; set; }
 
-        public Receipe Receipe { get; set; }
+        public Recipe Recipe { get; set; }
     }
 }

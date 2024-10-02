@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace MealsManager.Domain.Entities
 {
-    public class IngredientCategory
+    public class Cuisine
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
-
-        public ICollection<Ingredient> Ingredients { get; set; }
     }
 }

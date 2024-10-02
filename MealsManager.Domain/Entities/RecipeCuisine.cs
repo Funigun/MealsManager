@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace MealsManager.Domain.Entities
 {
-    public enum CookingStepType
+    public class RecipeCuisine
     {
-        PreCooking,
-        IngredientsPreparation,
-        Cooking,
-        Serving
+        public int CuisineId { get; set; }
+        public int RecipeId { get; set; }
     }
 }
