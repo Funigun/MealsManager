@@ -1,69 +1,66 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MealsManager.Domain.Entities;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MealsManager.API.Controllers
 {
-    /// <summary>
-    /// Controller handles cookbooks CRUD operations
-    /// </summary>
-    [Route("api/cookbooks")]
-    public class CookbookController : Controller
+    public class IngredientCategoriesController : Controller
     {
         /// <summary>
-        /// Endpoint for creating a cookbook
+        /// Endpoint for creating ingredient categories
         /// </summary>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult CreateCookbook()
+        public async Task<ActionResult<IngredientCategory>> CreateIngredientCategory()
         {
-            return View();
+            return new IngredientCategory();
         }
 
         /// <summary>
-        /// Endpoint for getting cookbooks
+        /// Endpoint for getting ingredients
         /// </summary>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult GetCookbooks()
+        public async Task<ActionResult<IEnumerable<IngredientCategory>>> GetIngredientCategories()
         {
-            return View();
+            return new List<IngredientCategory>();
         }
 
         /// <summary>
-        /// Endpoint for updating / overriting existing cookbook
+        /// Endpoint for updating / overriting existing ingredient
         /// </summary>
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult RefreshCookbook()
+        public IActionResult RefreshIngredientCategory()
         {
             return View();
         }
 
         /// <summary>
-        /// Endpoint for updating existing cookbook
+        /// Endpoint for updating existing ingredient category
         /// </summary>
         [HttpPatch]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult UpdateCookbook()
+        public IActionResult UpdateIngredientCategory()
         {
             return View();
         }
 
         /// <summary>
-        /// Endpoint for deleting existing cookbook
+        /// Endpoint for deleting existing ingredient category
         /// </summary>
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult DeleteCookbook()
+        public IActionResult DeleteIngredientCategory()
         {
             return View();
         }

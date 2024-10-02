@@ -19,7 +19,7 @@ builder.Services.AddSwaggerGen(config =>
     {
         Title = "Meals Manager API",
         Version = "v1",
-        Description = "API for Cookbooks / Receipes management",
+        Description = "API for Cookbooks / Recipes management",
         Contact = new Microsoft.OpenApi.Models.OpenApiContact() 
         { 
             Name = "Funigun", 
