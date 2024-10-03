@@ -1,27 +1,50 @@
-# MealsManager
-Meals Manager is and API application which allows to manage cookbooks, meal plans, pantry and shopping lists.
+# Overview
+Meals Manager is and API application which allows to:
+- manage cooking recipes, ingredients, categories (separate for recipes and ingredients) and pantries
+- create meal plans
+- create shopping lists
 
-## Cookbook model
-Cookbooks allows to group receipes together using different types (e.g. cuisine, category).
+# Features
 
-## Receipe model
-Each receipe contains following information (some of them are optional):
-- Details (name, description, amount, number of servings, categories, link, macronutrient)
-- List of ingredients (these might also be a receipes)
-- List of precooking steps (things that usually should be done in advance e.g. preparing a broth which will be used as ingredient)
-- List of ingredients preparation steps (steps that are recommended / required to perform before start cooking)
-- List of cooking step (actuall receipe)
-- List of serving steps (additional instruction (if needed) for putting everything together)
+## Recipes management
+There few features which are available for recipes besides basic CRUD operations:
+### a) Grouping 
 
-## Pantry model
+Define grouping category to create well organized recipe index (cookbooks) based on categories.
 
-Pantry model allows to create a list of ingredients that are available in the house.
-This can be used for filtering receipes while searching or planning meals for specific period of time.
+Example grouping:
+- [Group] Asian cuisine
+  - Sushi
+    - [Group] Strir Fry
+      - Udon noodles with chicken
+      - Rice noodles with ground pork
+    - [Group] Snacks
+      - Onigiri
+     
+### b) Filtering 
 
-## Shopping list model
+Filter recipes based on categories, cusines, selected ingredients, ingredients available in pantries.
 
-This is simple model which returns list of ingredients based provided details (e.g. ingredients in pantry, receipes).
+## Ingredients management
+Besides basic CRUD operations it is possible to group ingredients in similar way as recipes so your pantries can be well organized.
 
-## Meal Planner model
+You can define grouping category (in the same way as for recipes) to organize your pantries.
 
-Meal Planner model can be used to plan meals based on available ingredients or plan shopping with already created plans.
+## Categories management
+
+Define separate categories for recipes and ingredients. Define your own list of cuisines.
+
+## Pantries management
+
+Create your pantries, so building meal plans or filtering recipes can include the stuff which is available at hand.
+
+## Shopping list
+
+Create list shopping list from different places:
+- single recipe
+- selected recipes
+- recipes included in meal plan
+
+## Meal planner
+
+Create a meal plan for specific period or plan meals for a "meal prep" action.
