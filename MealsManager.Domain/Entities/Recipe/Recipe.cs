@@ -8,15 +8,15 @@
 
         public string? ImageURL { get; set; }
         public string? VideoURL { get; set; }
-
-        public string Cuisine { get; set; }
         public int Amount { get; set; }
         public byte NumberOfServings { get; set; }
 
-
+        public int CuisineId {  get; set; }
+        public string Cuisine { get; set; }
         public ICollection<RecipeCategory> Categories { get; set; } = new List<RecipeCategory>();
         public ICollection<RecipeGroupCategory> GroupCategories { get; set; } = new List<RecipeGroupCategory>();
         public ICollection<Ingredient> Ingredients { get; set; } = new List<Ingredient>();
         public ICollection<CookingStep> CookingSteps { get; set; } = new List<CookingStep>();
+        public ICollection<MealPlan> MealPlans { get; set; } = new List<MealPlan>();
     }
 }

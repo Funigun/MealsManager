@@ -1,10 +1,7 @@
 ﻿namespace MealsManager.Domain.Entities
 {
-    public enum CookingStepType
+    public class CookingStepType
     {
-        PreCooking,
-        IngredientsPreparation,
-        Cooking,
-        Serving
+        public int Id { get; set; }
     }
 }

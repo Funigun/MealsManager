@@ -1,15 +1,8 @@
 ﻿namespace MealsManager.Domain.Entities
 {
-    public enum IngredientUnit
+    public class IngredientUnit
     {
-        Gram,
-        Milligram,
-        Kilogram,
-        Milliliter,
-        Liter,
-        Cup,
-        Teaspon,
-        Tablespon,
-        Piece,
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }
