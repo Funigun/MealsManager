@@ -1,69 +1,70 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MealsManager.Domain.Entities;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MealsManager.API.Controllers
 {
     /// <summary>
-    /// Controller handler CRUD operations for Receipes
+    /// Controller handler CRUD operations for Cuisine categories
     /// </summary>
-    [Route("api/receipes")]
-    public class ReceipeController : Controller
+    [Route("api/cusine-categories")]
+    public class CuisineController : Controller
     {
         /// <summary>
-        /// Endpoint for creating a receipe
+        /// Endpoint for creating a cuisine category
         /// </summary>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult CreateReceipe()
+        public async Task<ActionResult<Cuisine>> CreateCuisine()
         {
-            return View();
+            return new Cuisine();
         }
 
         /// <summary>
-        /// Endpoint for getting receipes
+        /// Endpoint for getting cuisine categories
         /// </summary>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult GetReceipes()
+        public async Task<ActionResult<IEnumerable<Cuisine>>> GetCuisineCategories()
         {
-            return View();
+            return new List<Cuisine>();
         }
 
         /// <summary>
-        /// Endpoint for updating / overriting existing receipe
+        /// Endpoint for updating / overriting existing cuisine category
         /// </summary>
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult RefreshReceipe()
+        public IActionResult RefreshCusineCategory()
         {
             return View();
         }
 
         /// <summary>
-        /// Endpoint for updating existing receipe
+        /// Endpoint for updating existing cuisine category
         /// </summary>
         [HttpPatch]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult UpdateReceipe()
+        public IActionResult UpdateCuisineCategory()
         {
             return View();
         }
 
         /// <summary>
-        /// Endpoint for deleting existing receipe
+        /// Endpoint for deleting existing cuisine category
         /// </summary>
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult DeleteReceipe()
+        public IActionResult DeleteCuisineCategory()
         {
             return View();
         }

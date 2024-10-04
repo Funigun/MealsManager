@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MealsManager.Domain.Entities;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MealsManager.API.Controllers
 {
@@ -9,15 +10,15 @@ namespace MealsManager.API.Controllers
     public class ShoppingListController : Controller
     {
         /// <summary>
-        /// Endpoint for getting shopping list
+        /// Endpoint for creating a shopping list
         /// </summary>
-        [HttpGet]
+        [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult GetShoppingList()
+        public async Task<ActionResult<IEnumerable<Ingredient>>> CreateShoppingList()
         {
-            return View();
+            return new List<Ingredient>();  
         }
     }
 }

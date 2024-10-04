@@ -1,69 +1,70 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MealsManager.Domain.Entities;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MealsManager.API.Controllers
 {
     /// <summary>
-    /// Controller handles meal preparation logic
+    /// Controller handler CRUD operations for Recipe Categories
     /// </summary>
-    [Route("api/meal-plans")]
-    public class MealPlannerController : Controller
+    [Route("api/recipe-categories")]
+    public class RecipeCategoryController :Controller
     {
         /// <summary>
-        /// Endpoint for creating a meal plan
+        /// Endpoint for creating a recipe
         /// </summary>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult CreateMealPlan()
+        public async Task<ActionResult<RecipeCategory>> CreateRecipeCategory()
         {
-            return View();
+            return new RecipeCategory();
         }
 
         /// <summary>
-        /// Endpoint for getting meal plans
+        /// Endpoint for getting recipes
         /// </summary>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult GetMealPlans()
+        public async Task<ActionResult<IEnumerable<RecipeCategory>>> GetRecipeCategories()
         {
-            return View();
+            return new List<RecipeCategory>();
         }
 
         /// <summary>
-        /// Endpoint for updating / overriting existing plan
+        /// Endpoint for updating / overriting existing recipe category
         /// </summary>
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult RefreshMealPlan()
+        public IActionResult RefreshRecipeCategory()
         {
             return View();
         }
 
         /// <summary>
-        /// Endpoint for updating existing plan
+        /// Endpoint for updating existing recipe category
         /// </summary>
         [HttpPatch]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult UpdateMealPlan()
+        public IActionResult UpdateRecipe()
         {
             return View();
         }
 
         /// <summary>
-        /// Endpoint for deleting a plan
+        /// Endpoint for deleting existing recipe category
         /// </summary>
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult DeleteMealPlan()
+        public IActionResult DeleteRecipe()
         {
             return View();
         }
