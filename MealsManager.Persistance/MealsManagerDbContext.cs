@@ -4,9 +4,9 @@ using System.Reflection.Metadata;
 
 namespace MealsManager.Persistance
 {
-    public class CookbookDbContext : DbContext
+    public class MealsManagerDbContext : DbContext
     {
-        public CookbookDbContext(DbContextOptions<CookbookDbContext> options) : base(options) 
+        public MealsManagerDbContext(DbContextOptions<MealsManagerDbContext> options) : base(options)
         {
             
         }
