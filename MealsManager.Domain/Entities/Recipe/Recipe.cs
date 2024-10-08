@@ -12,7 +12,8 @@
         public byte NumberOfServings { get; set; }
 
         public int CuisineId {  get; set; }
-        public string Cuisine { get; set; }
+        public Cuisine Cuisine { get; set; }
+
         public ICollection<Cookbook> Cookbooks { get; set; } = new List<Cookbook>();
         public ICollection<RecipeCategory> Categories { get; set; } = new List<RecipeCategory>();
         public ICollection<Ingredient> Ingredients { get; set; } = new List<Ingredient>();

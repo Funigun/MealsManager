@@ -2,9 +2,15 @@
 {
     public class RecipeIngredient
     {
-        public ICollection<Recipe> Recipes { get; set; } = new List<Recipe>();
-        public ICollection<Ingredient> Ingredients { get; set;} = new List<Ingredient>();
+        public int RecipeId { get; set; }
+        public Recipe Recipe { get; set; }
+
+        public int IngredientId { get; set; }
+        public Ingredient Ingredient { get; set; }
+
+        public int IngredientUnitId {  get; set; }
         public IngredientUnit IngredientUnit { get; set; }
+
         public double Amount { get; set; }
     }
 }
