@@ -8,11 +8,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MealsManager.Application\MealsManager.Application.csproj" />
+    <ProjectReference Include="..\MealsManager.Common\MealsManager.Common.csproj" />
     <ProjectReference Include="..\MealsManager.Domain\MealsManager.Domain.csproj" />
+    <ProjectReference Include="..\MealsManager.Infrastructure\MealsManager.Infrastructure.csproj" />
+    <ProjectReference Include="..\MealsManager.Persistance\MealsManager.Persistance.csproj" />
   </ItemGroup>
 
 </Project>

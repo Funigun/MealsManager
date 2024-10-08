@@ -13,8 +13,8 @@
 
         public int CuisineId {  get; set; }
         public string Cuisine { get; set; }
+        public ICollection<Cookbook> Cookbooks { get; set; } = new List<Cookbook>();
         public ICollection<RecipeCategory> Categories { get; set; } = new List<RecipeCategory>();
-        public ICollection<RecipeGroupCategory> GroupCategories { get; set; } = new List<RecipeGroupCategory>();
         public ICollection<Ingredient> Ingredients { get; set; } = new List<Ingredient>();
         public ICollection<CookingStep> CookingSteps { get; set; } = new List<CookingStep>();
         public ICollection<MealPlan> MealPlans { get; set; } = new List<MealPlan>();
