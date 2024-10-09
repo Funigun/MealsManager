@@ -15,6 +15,7 @@
         public Cuisine Cuisine { get; set; }
 
         public ICollection<Cookbook> Cookbooks { get; set; } = new List<Cookbook>();
+        public ICollection<CookbookCategory> CookbookCategories { get; set; } = new HashSet<CookbookCategory>();
         public ICollection<RecipeCategory> Categories { get; set; } = new List<RecipeCategory>();
         public ICollection<Ingredient> Ingredients { get; set; } = new List<Ingredient>();
         public ICollection<CookingStep> CookingSteps { get; set; } = new List<CookingStep>();
