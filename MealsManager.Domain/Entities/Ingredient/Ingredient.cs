@@ -9,5 +9,6 @@
         public ICollection<Cuisine> Cuisines { get; set; } = new List<Cuisine>();
         public ICollection<Recipe> Recipes { get; set; } = new List<Recipe>();
         public ICollection<IngredientCategory> Categories { get; set; } = new List<IngredientCategory>();
+        public ICollection<PantryCategory> PantryCategories { get; set; } = new List<PantryCategory>();
     }
 }
