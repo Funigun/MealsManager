@@ -15,13 +15,7 @@ namespace MealsManager.Persistance
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-
-            modelBuilder.Entity<Recipe>()
-                        .HasMany(r => r.Ingredients)
-                        .WithMany(r => r.Recipes)
-                        .UsingEntity<RecipeIngredient>();
-                       
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());                       
         }
     }
 }

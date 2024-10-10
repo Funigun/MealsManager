@@ -10,8 +10,5 @@
 
         public int? ChildCategoryId { get; set; }
         public RecipeCategory? ChildCategory { get; set; }
-
-        public int RecipeId { get; set; }
-        public Recipe Recipe { get; set; }
     }
 }
