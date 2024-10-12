@@ -10,8 +10,7 @@ namespace MealsManager.Persistance.Configuration
         {
             builder.Property(p => p.PantryId).IsRequired();
             builder.Property(p => p.CategoryId).IsRequired();
-            builder.Property(p => p.ChildCategoryId).IsRequired(false);
-            builder.Property(p => p.IngredientId).IsRequired();                   
+            builder.Property(p => p.ChildCategoryId).IsRequired(false);                
         }
     }
 }

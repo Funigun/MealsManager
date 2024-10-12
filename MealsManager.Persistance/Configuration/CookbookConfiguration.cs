@@ -1,5 +1,4 @@
-﻿
-using MealsManager.Domain.Entities;
+﻿using MealsManager.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
