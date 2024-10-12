@@ -19,7 +19,7 @@ namespace MealsManager.Persistance
             return CreateContextInstance(optionsBuilder.Options);
         }
 
-        private IConfigurationRoot CreateDbConfiguration()
+        private static IConfigurationRoot CreateDbConfiguration()
         {
             string path = Directory.GetCurrentDirectory() + string.Format("{0}..{0}MealsManager", Path.DirectorySeparatorChar);
 
@@ -32,14 +32,14 @@ namespace MealsManager.Persistance
                    .Build();
         }
 
-        private DbContextOptionsBuilder<TContext> CreateDbOptions(string? connectionString)
+        public static DbContextOptionsBuilder<TContext> CreateDbOptions(string? connectionString)
         {
             if (string.IsNullOrEmpty(connectionString))
             {
                 throw new ArgumentException($"Connection string {connectionString} is null or empty.", nameof(connectionString));
             }
 
-            DbContextOptionsBuilder<TContext> optionsBuilder = new DbContextOptionsBuilder<TContext>();
+            DbContextOptionsBuilder<TContext> optionsBuilder = new();
             optionsBuilder.UseSqlServer(connectionString);
 
             return optionsBuilder;

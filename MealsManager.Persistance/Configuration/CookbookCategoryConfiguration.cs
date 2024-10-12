@@ -11,7 +11,6 @@ namespace MealsManager.Persistance.Configuration
             builder.Property(p => p.CookbookId).IsRequired();
             builder.Property(p => p.CategoryId).IsRequired();
             builder.Property(p => p.ChildCategoryId).IsRequired(false);
-            builder.Property(p => p.RecipeId).IsRequired();
         }
     }
 }
