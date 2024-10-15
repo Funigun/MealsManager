@@ -16,6 +16,7 @@
 
         public ICollection<Cookbook> Cookbooks { get; set; } = [];
         public ICollection<CookbookCategory> CookbookCategories { get; set; } = [];
+        public ICollection<CookbookCategoryRecipe> CookbookCategoryRecipes { get; set; } = [];
         public ICollection<RecipeCategory> Categories { get; set; } = [];
         public ICollection<Ingredient> Ingredients { get; set; } = [];
         public ICollection<CookingStep> CookingSteps { get; set; } = [];
