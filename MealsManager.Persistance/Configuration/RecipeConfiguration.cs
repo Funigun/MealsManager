@@ -17,11 +17,7 @@ namespace MealsManager.Persistance.Configuration
             builder.Property(p => p.NumberOfServings).IsRequired();
             builder.Property(p => p.Cuisine).IsRequired();
             builder.Property(p => p.Ingredients).IsRequired();
-            builder.Property(p => p.CookingSteps).IsRequired();
-
-            builder.HasMany(r => r.Ingredients)
-                   .WithMany(r => r.Recipes)
-                   .UsingEntity<RecipeIngredient>();          
+            builder.Property(p => p.CookingSteps).IsRequired();         
         }
     }
 }
