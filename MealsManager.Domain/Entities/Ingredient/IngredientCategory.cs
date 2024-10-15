@@ -9,6 +9,6 @@
         public ICollection<IngredientCategory> Subcategories { get; set; } = [];
         public ICollection<Ingredient> Ingredients { get; set; } = [];
         public ICollection<PantryCategory> PantryCategories { get; set; } = [];
-        public ICollection<PantryCategoryIngredient> PantryIngredientCategories { get; set; } = [];
+        public ICollection<PantryCategoryIngredient> PantryCategoryIngredients { get; set; } = [];
     }
 }

@@ -8,9 +8,25 @@ namespace MealsManager.Persistance.Configuration
     {
         public void Configure(EntityTypeBuilder<PantryCategory> builder)
         {
-            builder.Property(p => p.PantryId).IsRequired();
-            builder.Property(p => p.CategoryId).IsRequired();
-            builder.Property(p => p.ChildCategoryId).IsRequired(false);                
+            builder.HasKey(p => new { p.PantryId, p.CategoryId, p.ChildCategoryId });
+
+            builder.HasOne(p => p.Pantry)
+                   .WithMany(p => p.Categories)
+                   .HasForeignKey(p => p.PantryId)
+                   .IsRequired()
+                   .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(p => p.Category)
+                   .WithMany(p => p.PantryCategories)
+                   .HasForeignKey(p => p.CategoryId)
+                   .IsRequired()
+                   .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(p => p.Category)
+                   .WithMany(p => p.PantryCategories)
+                   .HasForeignKey(p => p.ChildCategoryId)
+                   .IsRequired(false)
+                   .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
