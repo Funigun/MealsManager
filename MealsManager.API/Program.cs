@@ -12,8 +12,9 @@ builder.Services.AddCors(options =>
                       builder => builder.WithOrigins("[application origin (url)]"));
 });
 
-builder.Services.AddPersistance(builder.Configuration);
+
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddPersistance(builder.Configuration);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

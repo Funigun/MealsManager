@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace MealsManager.Persistance
 {
-    public abstract class DesignTimerDbContextFactoryBase<TContext> : IDesignTimeDbContextFactory<TContext> where TContext : DbContext
+    public abstract class DesignTimeDbContextFactoryBase<TContext> : IDesignTimeDbContextFactory<TContext> where TContext : DbContext
     {
         private const string ConnectionStringName = "MealsManager";
         private const string EnvironmentName = "ASPNETCORE_ENVIRONMENT";
@@ -32,7 +32,7 @@ namespace MealsManager.Persistance
                    .Build();
         }
 
-        public static DbContextOptionsBuilder<TContext> CreateDbOptions(string? connectionString)
+        private static DbContextOptionsBuilder<TContext> CreateDbOptions(string? connectionString)
         {
             if (string.IsNullOrEmpty(connectionString))
             {
@@ -45,6 +45,6 @@ namespace MealsManager.Persistance
             return optionsBuilder;
         }
 
-        public abstract TContext CreateContextInstance(DbContextOptions<TContext> options);
+        protected abstract TContext CreateContextInstance(DbContextOptions<TContext> options);
     }
 }

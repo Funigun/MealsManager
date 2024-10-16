@@ -2,9 +2,9 @@
 
 namespace MealsManager.Persistance
 {
-    internal class MealsManagerDbContextFactory : DesignTimerDbContextFactoryBase<MealsManagerDbContext>
+    internal class MealsManagerDbContextFactory : DesignTimeDbContextFactoryBase<MealsManagerDbContext>
     {
-        public override MealsManagerDbContext CreateContextInstance(DbContextOptions<MealsManagerDbContext> options)
+        protected override MealsManagerDbContext CreateContextInstance(DbContextOptions<MealsManagerDbContext> options)
         {
             return new MealsManagerDbContext(options);
         }
