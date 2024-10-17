@@ -15,9 +15,7 @@ namespace MealsManager.Persistance.Configuration
             builder.Property(p => p.Description).HasMaxLength(1000);
             builder.Property(p => p.Amount).IsRequired();
             builder.Property(p => p.NumberOfServings).IsRequired();
-            builder.Property(p => p.Cuisine).IsRequired();
-            builder.Property(p => p.Ingredients).IsRequired();
-            builder.Property(p => p.CookingSteps).IsRequired();         
+            builder.Property(p => p.CuisineId).IsRequired();   
         }
     }
 }

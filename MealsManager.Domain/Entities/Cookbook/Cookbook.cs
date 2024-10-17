@@ -5,8 +5,8 @@
         public int Id { get; set; }
         public string Title { get; set; }
 
-        public ICollection<CookbookCategory> Categories { get; set; } = [];
+        public ICollection<RecipeCategory> Categories { get; set; } = [];
+        public ICollection<CookbookCategoryChild> CategoryChildren { get; set; } = [];
         public ICollection<CookbookCategoryRecipe> CategoryRecipes { get; set; } = [];
-        public ICollection<Recipe> Recipes { get; set; } = [];
     }
 }

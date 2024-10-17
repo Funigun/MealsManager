@@ -4,18 +4,20 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace MealsManager.Persistance.Configuration
 {
-    internal class CookbookCategoryConfiguration : IEntityTypeConfiguration<CookbookCategory>
+    internal class CookbookCategoryChildConfiguration : IEntityTypeConfiguration<CookbookCategoryChild>
     {
-        public void Configure(EntityTypeBuilder<CookbookCategory> builder)
+        public void Configure(EntityTypeBuilder<CookbookCategoryChild> builder)
         {
             builder.Property(cc => cc.CookbookId).IsRequired();
             builder.Property(cc => cc.CategoryId).IsRequired();
-            builder.Property(cc => cc.ChildCategoryId).IsRequired(false);
+            builder.Property(cc => cc.ChildCategoryId).IsRequired();
+
+            builder.ToTable("CookbookCategoryChildren");
 
             builder.HasKey(cc => new { cc.CookbookId, cc.CategoryId, cc.ChildCategoryId });
 
             builder.HasOne(cc => cc.Cookbook)
-                   .WithMany(c => c.Categories)
+                   .WithMany(c => c.CategoryChildren)
                    .HasForeignKey(cc => cc.CookbookId)
                    .IsRequired()
                    .OnDelete(DeleteBehavior.Cascade);
@@ -26,10 +28,10 @@ namespace MealsManager.Persistance.Configuration
                    .IsRequired()
                    .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(cc => cc.Category)
-                   .WithMany(rc => rc.CookbookCategories)
+            builder.HasOne(cc => cc.ChildCategory)
+                   .WithMany(rc => rc.CookbookCategoryChildren)
                    .HasForeignKey(p => p.ChildCategoryId)
-                   .IsRequired(false)
+                   .IsRequired()
                    .OnDelete(DeleteBehavior.Restrict);
         }
     }

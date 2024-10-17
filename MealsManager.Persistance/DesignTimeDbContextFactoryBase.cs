@@ -11,7 +11,7 @@ namespace MealsManager.Persistance
 
         public TContext CreateDbContext(string[] args)
         {
-            IConfigurationRoot config = CreateDbConfiguration();
+            IConfigurationRoot config = CreateDbConfiguration(Environment.GetEnvironmentVariable(EnvironmentName));
             string connectionString = config.GetConnectionString(ConnectionStringName);
 
             DbContextOptionsBuilder<TContext> optionsBuilder = CreateDbOptions(connectionString);
@@ -19,15 +19,15 @@ namespace MealsManager.Persistance
             return CreateContextInstance(optionsBuilder.Options);
         }
 
-        private static IConfigurationRoot CreateDbConfiguration()
+        private static IConfigurationRoot CreateDbConfiguration(string environment)
         {
-            string path = Directory.GetCurrentDirectory() + string.Format("{0}..{0}MealsManager", Path.DirectorySeparatorChar);
-
+            string path = Directory.GetCurrentDirectory();// + string.Format("{0}..{0}MealsManager", Path.DirectorySeparatorChar);
+                         
             return new ConfigurationBuilder()
                    .SetBasePath(path)
                    .AddJsonFile("appsettings.json")
                    .AddJsonFile("appsettings.Local.json", optional: true)
-                   .AddJsonFile($"appsettings.{EnvironmentName}.json", optional: true)
+                   .AddJsonFile($"appsettings.{environment}.json", optional: true)
                    .AddEnvironmentVariables()
                    .Build();
         }

@@ -13,6 +13,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MealsManager.Application\MealsManager.Application.csproj" />
+    <ProjectReference Include="..\MealsManager.Common\MealsManager.Common.csproj" />
+    <ProjectReference Include="..\MealsManager.Domain\MealsManager.Domain.csproj" />
   </ItemGroup>
 
 </Project>

@@ -12,7 +12,9 @@ namespace MealsManager.Persistance.Configuration
             builder.Property(p => p.CategoryId).IsRequired(false);
             builder.Property(p => p.RecipeId).IsRequired();
 
-            builder.HasKey(p => new { p.CookbookId, p.CategoryId, p.RecipeId });
+            builder.ToTable("CookbookRecipes");
+
+            builder.HasKey(p => new { p.CookbookId, p.RecipeId });
 
             builder.HasOne(cc => cc.Cookbook)
                    .WithMany(c => c.CategoryRecipes)

@@ -8,10 +8,10 @@ namespace MealsManager.Persistance.Configuration
     {
         public void Configure(EntityTypeBuilder<PantryCategoryIngredient> builder)
         {
-            builder.Property(p => p.Pantry).IsRequired();
-            builder.Property(p => p.IngredientCategory).IsRequired(false);
-            builder.Property(p => p.IngredientUnit).IsRequired();
-            builder.Property(p => p.Ingredient).IsRequired();
+            builder.Property(p => p.PantryId).IsRequired();
+            builder.Property(p => p.IngredientCategoryId).IsRequired(false);
+            builder.Property(p => p.IngredientUnitId).IsRequired();
+            builder.Property(p => p.IngredientId).IsRequired();
             builder.Property(p => p.Amount).IsRequired();
 
             builder.HasKey(p => new { p.PantryId, p.IngredientCategoryId, p.IngredientId, p.IngredientUnitId });
