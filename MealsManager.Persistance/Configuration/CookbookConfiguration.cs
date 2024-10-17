@@ -9,6 +9,10 @@ namespace MealsManager.Persistance.Configuration
         public void Configure(EntityTypeBuilder<Cookbook> builder)
         {
             builder.Property(p => p.Title).HasMaxLength(250).IsRequired();
+
+            builder.HasMany(c => c.Categories)
+                   .WithMany()
+                   .UsingEntity("CookbookCategories");
         }
     }
 }

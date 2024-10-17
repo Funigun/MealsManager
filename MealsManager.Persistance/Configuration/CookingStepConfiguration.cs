@@ -8,7 +8,9 @@ namespace MealsManager.Persistance.Configuration
     {
         public void Configure(EntityTypeBuilder<CookingStep> builder)
         {
-            builder.Property(p => p.Type).IsRequired();
+            builder.ToTable("CookingSteps");
+
+            builder.Property(p => p.CookingStepTypeId).IsRequired();
             builder.Property(p => p.Description).HasMaxLength(1000);
         }
     }

@@ -5,9 +5,10 @@
         public int Id { get; private set; }
         public string Name { get; set; }
 
-        public PantryCategory? PantryCategory { get; set; }
+        public PantryCategoryIngredient? PantryCategory { get; set; }
         public ICollection<Cuisine> Cuisines { get; set; } = [];
         public ICollection<Recipe> Recipes { get; set; } = [];
         public ICollection<IngredientCategory> Categories { get; set; } = [];
+        public ICollection<RecipeIngredient> RecipeIngredients { get; set; } = [];
     }
 }

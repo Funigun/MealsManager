@@ -4,14 +4,14 @@ using Microsoft.Extensions.Configuration;
 
 namespace MealsManager.Persistance
 {
-    public abstract class DesignTimerDbContextFactoryBase<TContext> : IDesignTimeDbContextFactory<TContext> where TContext : DbContext
+    public abstract class DesignTimeDbContextFactoryBase<TContext> : IDesignTimeDbContextFactory<TContext> where TContext : DbContext
     {
         private const string ConnectionStringName = "MealsManager";
         private const string EnvironmentName = "ASPNETCORE_ENVIRONMENT";
 
         public TContext CreateDbContext(string[] args)
         {
-            IConfigurationRoot config = CreateDbConfiguration();
+            IConfigurationRoot config = CreateDbConfiguration(Environment.GetEnvironmentVariable(EnvironmentName));
             string connectionString = config.GetConnectionString(ConnectionStringName);
 
             DbContextOptionsBuilder<TContext> optionsBuilder = CreateDbOptions(connectionString);
@@ -19,20 +19,20 @@ namespace MealsManager.Persistance
             return CreateContextInstance(optionsBuilder.Options);
         }
 
-        private static IConfigurationRoot CreateDbConfiguration()
+        private static IConfigurationRoot CreateDbConfiguration(string environment)
         {
-            string path = Directory.GetCurrentDirectory() + string.Format("{0}..{0}MealsManager", Path.DirectorySeparatorChar);
-
+            string path = Directory.GetCurrentDirectory();// + string.Format("{0}..{0}MealsManager", Path.DirectorySeparatorChar);
+                         
             return new ConfigurationBuilder()
                    .SetBasePath(path)
                    .AddJsonFile("appsettings.json")
                    .AddJsonFile("appsettings.Local.json", optional: true)
-                   .AddJsonFile($"appsettings.{EnvironmentName}.json", optional: true)
+                   .AddJsonFile($"appsettings.{environment}.json", optional: true)
                    .AddEnvironmentVariables()
                    .Build();
         }
 
-        public static DbContextOptionsBuilder<TContext> CreateDbOptions(string? connectionString)
+        private static DbContextOptionsBuilder<TContext> CreateDbOptions(string? connectionString)
         {
             if (string.IsNullOrEmpty(connectionString))
             {
@@ -45,6 +45,6 @@ namespace MealsManager.Persistance
             return optionsBuilder;
         }
 
-        public abstract TContext CreateContextInstance(DbContextOptions<TContext> options);
+        protected abstract TContext CreateContextInstance(DbContextOptions<TContext> options);
     }
 }

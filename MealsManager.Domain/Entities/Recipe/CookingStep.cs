@@ -7,7 +7,7 @@
         public string? ImageURL { get; set; }
 
         public int CookingStepTypeId { get; set; }
-        public CookingStepType Type { get; set; }
+        public CookingStepType StepType { get; set; }
 
         public int RecipeId { get; set; }
         public Recipe Recipe { get; set; }

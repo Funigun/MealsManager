@@ -4,6 +4,6 @@
     {
         public int Id { get; set; }
 
-        public ICollection<CookingStep> Steps { get; set; } = new List<CookingStep>();
+        public ICollection<CookingStep> Steps { get; set; } = [];
     }
 }
