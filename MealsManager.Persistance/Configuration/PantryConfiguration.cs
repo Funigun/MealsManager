@@ -2,17 +2,16 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace MealsManager.Persistance.Configuration
-{
-    internal class PantryConfiguration : IEntityTypeConfiguration<Pantry>
-    {
-        public void Configure(EntityTypeBuilder<Pantry> builder)
-        {
-            builder.Property(p => p.Name).HasMaxLength(50).IsRequired();
+namespace MealsManager.Persistance.Configuration;
 
-            builder.HasMany(p => p.Categories)
-                   .WithMany()
-                   .UsingEntity("PantryCategories");
-        }
+internal class PantryConfiguration : IEntityTypeConfiguration<Pantry>
+{
+    public void Configure(EntityTypeBuilder<Pantry> builder)
+    {
+        builder.Property(p => p.Name).HasMaxLength(50).IsRequired();
+
+        builder.HasMany(p => p.Categories)
+               .WithMany()
+               .UsingEntity("PantryCategories");
     }
 }
