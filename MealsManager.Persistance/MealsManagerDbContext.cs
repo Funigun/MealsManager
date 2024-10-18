@@ -7,8 +7,7 @@ namespace MealsManager.Persistance
     public class MealsManagerDbContext(DbContextOptions<MealsManagerDbContext> options) : DbContext(options)
     {
         public DbSet<Cookbook> Cookbooks { get; set; }
-        public DbSet<CookbookCategoryChild> CookbookCategoryChildren { get; set; }
-        public DbSet<CookbookCategoryRecipe> CookbookCategoryRecipes { get; set; }
+        public DbSet<CookbookCategory> CookbookCategories { get; set; }
 
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<RecipeCategory> RecipeCategories { get; set; }

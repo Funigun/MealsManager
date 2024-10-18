@@ -17,8 +17,7 @@
         public int? IngredientId { get; set; }
         public Ingredient? Ingredient { get; set; }
 
-        public ICollection<CookbookCategoryChild> CookbookCategoryChildren { get; set; } = [];
-        public ICollection<CookbookCategoryRecipe> CookbookCategoryRecipes { get; set; } = [];
+
         public ICollection<RecipeCategory> Categories { get; set; } = [];
         public ICollection<RecipeIngredient> Ingredients { get; set; } = [];
         public ICollection<CookingStep> CookingSteps { get; set; } = [];
