@@ -9,9 +9,5 @@ internal class PantryConfiguration : IEntityTypeConfiguration<Pantry>
     public void Configure(EntityTypeBuilder<Pantry> builder)
     {
         builder.Property(p => p.Name).HasMaxLength(50).IsRequired();
-
-        builder.HasMany(p => p.Categories)
-               .WithMany()
-               .UsingEntity("PantryCategories");
     }
 }

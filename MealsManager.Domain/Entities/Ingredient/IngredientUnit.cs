@@ -6,5 +6,5 @@ public class IngredientUnit
     public string Name { get; set; }
 
     public ICollection<RecipeIngredient> RecipeIngredients { get; set; } = [];
-    public ICollection<PantryCategoryIngredient> PantryIngredients { get; set; } = [];
+    public ICollection<PantryCategory> PantryIngredients { get; set; } = [];
 }

@@ -18,8 +18,7 @@ namespace MealsManager.Persistance
         public DbSet<IngredientUnit> IngredientUnits { get; set; }
 
         public DbSet<Pantry> Pantries { get; set; }
-        public DbSet<PantryCategoryChild> PantryCategoryChildren { get; set; }
-        public DbSet<PantryCategoryIngredient> PantryCategoryIngredients { get; set; }
+        public DbSet<PantryCategory> PantryCategories { get; set; }
 
         public DbSet<Cuisine> Cuisines { get; set; }
         public DbSet<MealPlan> MealPlans { get; set; }
