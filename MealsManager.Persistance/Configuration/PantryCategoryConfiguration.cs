@@ -9,9 +9,9 @@ internal class PantryCategoryConfiguration : IEntityTypeConfiguration<PantryCate
     {
         builder.Property(p => p.Name).HasMaxLength(100);
 
-        builder.HasOne<PantryCategory>()
+        builder.HasOne(p => p.ParentCategory)
                .WithMany(p => p.Subcategories)
-               .HasForeignKey("SubcategoryId")
+               .HasForeignKey(p => p.ParentCategoryId)
                .IsRequired(false);
 
         builder.HasMany(p => p.Pantries)

@@ -10,21 +10,20 @@ internal class CookbookCategoryConfiguration : IEntityTypeConfiguration<Cookbook
     {
         builder.Property(p => p.Name).HasMaxLength(100);
 
-
         builder.HasOne(cc => cc.Cookbook)
                .WithMany()
-               .IsRequired()
-               .HasForeignKey(cc => cc.CookbookId);
+               .HasForeignKey(cc => cc.CookbookId)
+               .IsRequired();
 
         builder.HasOne(cc => cc.Recipe)
                .WithMany()
-               .IsRequired(false)
-               .HasForeignKey(cc => cc.RecipeId);
+               .HasForeignKey(cc => cc.RecipeId)
+               .IsRequired(false);
 
-        builder.HasOne<CookbookCategory>()
+        builder.HasOne(c => c.ParentCategory)
                .WithMany(c => c.Subcategories)
-               .IsRequired(false)
-               .HasForeignKey("SubcategoryId");
+               .HasForeignKey(c => c.ParentCategoryId)
+               .IsRequired(false);
 
     }
 }

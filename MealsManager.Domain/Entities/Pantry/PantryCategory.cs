@@ -4,6 +4,8 @@ public class PantryCategory
     public int Id { get; set; }
     public string Name { get; set; }
 
+    public int? ParentCategoryId { get; set; }
+    public PantryCategory ParentCategory { get; set; }
     public ICollection<PantryCategory> Subcategories { get; set; } = [];
     public ICollection<Pantry> Pantries { get; set; } = [];
     public int? IngredientId { get; set; }
