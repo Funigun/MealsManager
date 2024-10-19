@@ -10,9 +10,5 @@ internal class CookbookConfiguration : IEntityTypeConfiguration<Cookbook>
     {
         builder.Property(p => p.Id).HasColumnOrder(0);
         builder.Property(p => p.Title).HasMaxLength(250);
-
-        builder.HasMany(c => c.Categories)
-               .WithMany()
-               .UsingEntity("CookbookCategories");
     }
 }

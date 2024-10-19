@@ -11,7 +11,7 @@ internal class CookbookCategoryConfiguration : IEntityTypeConfiguration<Cookbook
         builder.Property(p => p.Name).HasMaxLength(100);
 
         builder.HasOne(cc => cc.Cookbook)
-               .WithMany()
+               .WithMany(c => c.Categories)
                .HasForeignKey(cc => cc.CookbookId)
                .IsRequired();
 

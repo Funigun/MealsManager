@@ -18,13 +18,12 @@ internal class PantryCategoryConfiguration : IEntityTypeConfiguration<PantryCate
                .WithMany(p => p.Categories);
 
         builder.HasOne(p => p.Ingredient)
-               .WithMany()
-               .HasForeignKey(p => p.IngredientId)
+               .WithOne(i => i.PantryCategory)
                .IsRequired(false)
                .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne(p => p.IngredientUnit)
-               .WithMany()
+               .WithMany(i => i.PantryIngredients)
                .HasForeignKey(p => p.IngredientUnitId)
                .IsRequired(false)
                .OnDelete(DeleteBehavior.Restrict);
