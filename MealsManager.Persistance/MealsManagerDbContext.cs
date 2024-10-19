@@ -6,9 +6,9 @@ using System.Reflection;
 
 namespace MealsManager.Persistance
 {
-    public class MealsManagerDbContext(DbContextOptions<MealsManagerDbContext> options, IDateTime dateTimeService) : DbContext(options)
+    public class MealsManagerDbContext(DbContextOptions<MealsManagerDbContext> options) : DbContext(options)
     {
-        private IDateTime _dateTimeService = dateTimeService;
+        private IDateTime _dateTimeService;
 
         public DbSet<Cookbook> Cookbooks { get; set; }
         public DbSet<CookbookCategory> CookbookCategories { get; set; }
@@ -25,6 +25,11 @@ namespace MealsManager.Persistance
         public DbSet<PantryCategory> PantryCategories { get; set; }
 
         public DbSet<MealPlan> MealPlans { get; set; }
+
+        public MealsManagerDbContext(DbContextOptions<MealsManagerDbContext> options, IDateTime dateTimeService) : this(options)
+        {
+            _dateTimeService = dateTimeService;
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
