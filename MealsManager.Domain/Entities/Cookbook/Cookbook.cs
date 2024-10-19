@@ -1,12 +1,10 @@
-﻿namespace MealsManager.Domain.Entities
-{
-    public class Cookbook
-    {
-        public int Id { get; set; }
-        public string Title { get; set; }
+﻿using MealsManager.Domain.Common;
 
-        public ICollection<RecipeCategory> Categories { get; set; } = [];
-        public ICollection<CookbookCategoryChild> CategoryChildren { get; set; } = [];
-        public ICollection<CookbookCategoryRecipe> CategoryRecipes { get; set; } = [];
-    }
+namespace MealsManager.Domain.Entities;
+
+public class Cookbook : AuditableEntity
+{
+    public string Title { get; set; }
+
+    public ICollection<CookbookCategory> Categories { get; set; } = [];
 }

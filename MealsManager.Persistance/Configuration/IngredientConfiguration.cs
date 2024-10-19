@@ -3,13 +3,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 
-namespace MealsManager.Persistance.Configuration
+namespace MealsManager.Persistance.Configuration;
+
+internal class IngredientConfiguration : IEntityTypeConfiguration<Ingredient>
 {
-    internal class IngredientConfiguration : IEntityTypeConfiguration<Ingredient>
+    public void Configure(EntityTypeBuilder<Ingredient> builder)
     {
-        public void Configure(EntityTypeBuilder<Ingredient> builder)
-        {
-            builder.Property(p => p.Name).HasMaxLength(150).IsRequired();
-        }
+        builder.Property(p => p.Id).HasColumnOrder(0);
+        builder.Property(p => p.Name).HasMaxLength(150);
     }
 }

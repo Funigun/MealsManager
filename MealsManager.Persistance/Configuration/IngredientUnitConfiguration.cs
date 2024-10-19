@@ -1,19 +1,26 @@
 ﻿using MealsManager.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MealsManager.Persistance.Configuration
+
+namespace MealsManager.Persistance.Configuration;
+
+internal class IngredientUnitConfiguration : IEntityTypeConfiguration<IngredientUnit>
 {
-    internal class IngredientUnitConfiguration : IEntityTypeConfiguration<IngredientUnit>
+    public void Configure(EntityTypeBuilder<IngredientUnit> builder)
     {
-        public void Configure(EntityTypeBuilder<IngredientUnit> builder)
-        {
-            builder.Property(p => p.Name).HasMaxLength(100).IsRequired();
-        }
+        builder.Property(p => p.Name).HasMaxLength(50);
+
+        builder.HasMany(i => i.RecipeIngredients)
+               .WithOne(p => p.IngredientUnit)
+               .HasForeignKey(p =>  p.IngredientUnitId)
+               .IsRequired()
+               .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(i => i.PantryIngredients)
+               .WithOne(p => p.IngredientUnit)
+               .HasForeignKey(p => p.IngredientUnitId)
+               .IsRequired()
+               .OnDelete(DeleteBehavior.Restrict);
     }
 }

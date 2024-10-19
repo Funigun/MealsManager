@@ -17,36 +17,18 @@ namespace MealsManager.Persistance.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false)
+                    Title = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    StatusId = table.Column<int>(type: "int", nullable: false),
+                    InavtivatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    InactivatedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Cookbooks", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CookingStepType",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CookingStepType", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Cuisines",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Cuisines", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -55,11 +37,17 @@ namespace MealsManager.Persistance.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    IngredientCategoryId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_IngredientCategories", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_IngredientCategories_IngredientCategories_IngredientCategoryId",
+                        column: x => x.IngredientCategoryId,
+                        principalTable: "IngredientCategories",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -68,7 +56,14 @@ namespace MealsManager.Persistance.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    StatusId = table.Column<int>(type: "int", nullable: false),
+                    InavtivatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    InactivatedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -81,7 +76,7 @@ namespace MealsManager.Persistance.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -96,7 +91,14 @@ namespace MealsManager.Persistance.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     From = table.Column<DateOnly>(type: "date", nullable: false),
-                    To = table.Column<DateOnly>(type: "date", nullable: false)
+                    To = table.Column<DateOnly>(type: "date", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    StatusId = table.Column<int>(type: "int", nullable: false),
+                    InavtivatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    InactivatedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -122,58 +124,11 @@ namespace MealsManager.Persistance.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_RecipeCategories", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "IngredientCategoryIngredientCategory",
-                columns: table => new
-                {
-                    ParentCategoriesId = table.Column<int>(type: "int", nullable: false),
-                    SubcategoriesId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_IngredientCategoryIngredientCategory", x => new { x.ParentCategoriesId, x.SubcategoriesId });
-                    table.ForeignKey(
-                        name: "FK_IngredientCategoryIngredientCategory_IngredientCategories_ParentCategoriesId",
-                        column: x => x.ParentCategoriesId,
-                        principalTable: "IngredientCategories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_IngredientCategoryIngredientCategory_IngredientCategories_SubcategoriesId",
-                        column: x => x.SubcategoriesId,
-                        principalTable: "IngredientCategories",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CuisineIngredient",
-                columns: table => new
-                {
-                    CuisinesId = table.Column<int>(type: "int", nullable: false),
-                    IngredientsId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CuisineIngredient", x => new { x.CuisinesId, x.IngredientsId });
-                    table.ForeignKey(
-                        name: "FK_CuisineIngredient_Cuisines_CuisinesId",
-                        column: x => x.CuisinesId,
-                        principalTable: "Cuisines",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CuisineIngredient_Ingredients_IngredientsId",
-                        column: x => x.IngredientsId,
-                        principalTable: "Ingredients",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -212,18 +167,19 @@ namespace MealsManager.Persistance.Migrations
                     VideoURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Amount = table.Column<int>(type: "int", nullable: false),
                     NumberOfServings = table.Column<byte>(type: "tinyint", nullable: false),
-                    CuisineId = table.Column<int>(type: "int", nullable: false),
-                    IngredientId = table.Column<int>(type: "int", nullable: true)
+                    IngredientId = table.Column<int>(type: "int", nullable: true),
+                    Difficulty = table.Column<int>(type: "int", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    StatusId = table.Column<int>(type: "int", nullable: false),
+                    InavtivatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    InactivatedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Recipes", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Recipes_Cuisines_CuisineId",
-                        column: x => x.CuisineId,
-                        principalTable: "Cuisines",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Recipes_Ingredients_IngredientId",
                         column: x => x.IngredientId,
@@ -235,117 +191,34 @@ namespace MealsManager.Persistance.Migrations
                 name: "PantryCategories",
                 columns: table => new
                 {
-                    CategoriesId = table.Column<int>(type: "int", nullable: false),
-                    PantryId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    ParentCategoryId = table.Column<int>(type: "int", nullable: true),
+                    IngredientId = table.Column<int>(type: "int", nullable: true),
+                    IngredientUnitId = table.Column<int>(type: "int", nullable: true),
+                    IngredientAmount = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PantryCategories", x => new { x.CategoriesId, x.PantryId });
+                    table.PrimaryKey("PK_PantryCategories", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PantryCategories_IngredientCategories_CategoriesId",
-                        column: x => x.CategoriesId,
-                        principalTable: "IngredientCategories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PantryCategories_Pantries_PantryId",
-                        column: x => x.PantryId,
-                        principalTable: "Pantries",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PantryCategoryChildren",
-                columns: table => new
-                {
-                    PantryId = table.Column<int>(type: "int", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
-                    ChildCategoryId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PantryCategoryChildren", x => new { x.PantryId, x.CategoryId, x.ChildCategoryId });
-                    table.ForeignKey(
-                        name: "FK_PantryCategoryChildren_IngredientCategories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "IngredientCategories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_PantryCategoryChildren_IngredientCategories_ChildCategoryId",
-                        column: x => x.ChildCategoryId,
-                        principalTable: "IngredientCategories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_PantryCategoryChildren_Pantries_PantryId",
-                        column: x => x.PantryId,
-                        principalTable: "Pantries",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PantryCategoryIngredients",
-                columns: table => new
-                {
-                    PantryId = table.Column<int>(type: "int", nullable: false),
-                    IngredientId = table.Column<int>(type: "int", nullable: false),
-                    IngredientCategoryId = table.Column<int>(type: "int", nullable: false),
-                    IngredientUnitId = table.Column<int>(type: "int", nullable: false),
-                    Amount = table.Column<double>(type: "float", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PantryCategoryIngredients", x => new { x.PantryId, x.IngredientCategoryId, x.IngredientId, x.IngredientUnitId });
-                    table.ForeignKey(
-                        name: "FK_PantryCategoryIngredients_IngredientCategories_IngredientCategoryId",
-                        column: x => x.IngredientCategoryId,
-                        principalTable: "IngredientCategories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
-                    table.ForeignKey(
-                        name: "FK_PantryCategoryIngredients_IngredientUnits_IngredientUnitId",
+                        name: "FK_PantryCategories_IngredientUnits_IngredientUnitId",
                         column: x => x.IngredientUnitId,
                         principalTable: "IngredientUnits",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_PantryCategoryIngredients_Ingredients_IngredientId",
+                        name: "FK_PantryCategories_Ingredients_IngredientId",
                         column: x => x.IngredientId,
                         principalTable: "Ingredients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_PantryCategories_PantryCategories_ParentCategoryId",
+                        column: x => x.ParentCategoryId,
+                        principalTable: "PantryCategories",
                         principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_PantryCategoryIngredients_Pantries_PantryId",
-                        column: x => x.PantryId,
-                        principalTable: "Pantries",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CookbookCategories",
-                columns: table => new
-                {
-                    CategoriesId = table.Column<int>(type: "int", nullable: false),
-                    CookbookId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CookbookCategories", x => new { x.CategoriesId, x.CookbookId });
-                    table.ForeignKey(
-                        name: "FK_CookbookCategories_Cookbooks_CookbookId",
-                        column: x => x.CookbookId,
-                        principalTable: "Cookbooks",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CookbookCategories_RecipeCategories_CategoriesId",
-                        column: x => x.CategoriesId,
-                        principalTable: "RecipeCategories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -372,67 +245,32 @@ namespace MealsManager.Persistance.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CookbookCategoryChildren",
+                name: "CookbookCategories",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    ParentCategoryId = table.Column<int>(type: "int", nullable: true),
                     CookbookId = table.Column<int>(type: "int", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
-                    ChildCategoryId = table.Column<int>(type: "int", nullable: false),
                     RecipeId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CookbookCategoryChildren", x => new { x.CookbookId, x.CategoryId, x.ChildCategoryId });
+                    table.PrimaryKey("PK_CookbookCategories", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CookbookCategoryChildren_Cookbooks_CookbookId",
-                        column: x => x.CookbookId,
-                        principalTable: "Cookbooks",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CookbookCategoryChildren_RecipeCategories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "RecipeCategories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_CookbookCategoryChildren_RecipeCategories_ChildCategoryId",
-                        column: x => x.ChildCategoryId,
-                        principalTable: "RecipeCategories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_CookbookCategoryChildren_Recipes_RecipeId",
-                        column: x => x.RecipeId,
-                        principalTable: "Recipes",
+                        name: "FK_CookbookCategories_CookbookCategories_ParentCategoryId",
+                        column: x => x.ParentCategoryId,
+                        principalTable: "CookbookCategories",
                         principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CookbookRecipes",
-                columns: table => new
-                {
-                    CookbookId = table.Column<int>(type: "int", nullable: false),
-                    RecipeId = table.Column<int>(type: "int", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CookbookRecipes", x => new { x.CookbookId, x.RecipeId });
                     table.ForeignKey(
-                        name: "FK_CookbookRecipes_Cookbooks_CookbookId",
+                        name: "FK_CookbookCategories_Cookbooks_CookbookId",
                         column: x => x.CookbookId,
                         principalTable: "Cookbooks",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CookbookRecipes_RecipeCategories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "RecipeCategories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
-                    table.ForeignKey(
-                        name: "FK_CookbookRecipes_Recipes_RecipeId",
+                        name: "FK_CookbookCategories_Recipes_RecipeId",
                         column: x => x.RecipeId,
                         principalTable: "Recipes",
                         principalColumn: "Id");
@@ -446,24 +284,17 @@ namespace MealsManager.Persistance.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
                     ImageURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CookingStepTypeId = table.Column<int>(type: "int", nullable: false),
-                    RecipeId = table.Column<int>(type: "int", nullable: false)
+                    StepType = table.Column<int>(type: "int", nullable: false),
+                    RecipeId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CookingSteps", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CookingSteps_CookingStepType_CookingStepTypeId",
-                        column: x => x.CookingStepTypeId,
-                        principalTable: "CookingStepType",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_CookingSteps_Recipes_RecipeId",
                         column: x => x.RecipeId,
                         principalTable: "Recipes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -545,40 +376,44 @@ namespace MealsManager.Persistance.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "PantryPantryCategory",
+                columns: table => new
+                {
+                    CategoriesId = table.Column<int>(type: "int", nullable: false),
+                    PantriesId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PantryPantryCategory", x => new { x.CategoriesId, x.PantriesId });
+                    table.ForeignKey(
+                        name: "FK_PantryPantryCategory_Pantries_PantriesId",
+                        column: x => x.PantriesId,
+                        principalTable: "Pantries",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PantryPantryCategory_PantryCategories_CategoriesId",
+                        column: x => x.CategoriesId,
+                        principalTable: "PantryCategories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_CookbookCategories_CookbookId",
                 table: "CookbookCategories",
                 column: "CookbookId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CookbookCategoryChildren_CategoryId",
-                table: "CookbookCategoryChildren",
-                column: "CategoryId");
+                name: "IX_CookbookCategories_ParentCategoryId",
+                table: "CookbookCategories",
+                column: "ParentCategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CookbookCategoryChildren_ChildCategoryId",
-                table: "CookbookCategoryChildren",
-                column: "ChildCategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CookbookCategoryChildren_RecipeId",
-                table: "CookbookCategoryChildren",
+                name: "IX_CookbookCategories_RecipeId",
+                table: "CookbookCategories",
                 column: "RecipeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CookbookRecipes_CategoryId",
-                table: "CookbookRecipes",
-                column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CookbookRecipes_RecipeId",
-                table: "CookbookRecipes",
-                column: "RecipeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CookingSteps_CookingStepTypeId",
-                table: "CookingSteps",
-                column: "CookingStepTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CookingSteps_RecipeId",
@@ -586,14 +421,9 @@ namespace MealsManager.Persistance.Migrations
                 column: "RecipeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CuisineIngredient_IngredientsId",
-                table: "CuisineIngredient",
-                column: "IngredientsId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_IngredientCategoryIngredientCategory_SubcategoriesId",
-                table: "IngredientCategoryIngredientCategory",
-                column: "SubcategoriesId");
+                name: "IX_IngredientCategories_IngredientCategoryId",
+                table: "IngredientCategories",
+                column: "IngredientCategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_IngredientIngredientCategory_IngredientsId",
@@ -606,35 +436,26 @@ namespace MealsManager.Persistance.Migrations
                 column: "RecipesId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PantryCategories_PantryId",
+                name: "IX_PantryCategories_IngredientId",
                 table: "PantryCategories",
-                column: "PantryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PantryCategoryChildren_CategoryId",
-                table: "PantryCategoryChildren",
-                column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PantryCategoryChildren_ChildCategoryId",
-                table: "PantryCategoryChildren",
-                column: "ChildCategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PantryCategoryIngredients_IngredientCategoryId",
-                table: "PantryCategoryIngredients",
-                column: "IngredientCategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PantryCategoryIngredients_IngredientId",
-                table: "PantryCategoryIngredients",
                 column: "IngredientId",
-                unique: true);
+                unique: true,
+                filter: "[IngredientId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PantryCategoryIngredients_IngredientUnitId",
-                table: "PantryCategoryIngredients",
+                name: "IX_PantryCategories_IngredientUnitId",
+                table: "PantryCategories",
                 column: "IngredientUnitId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PantryCategories_ParentCategoryId",
+                table: "PantryCategories",
+                column: "ParentCategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PantryPantryCategory_PantriesId",
+                table: "PantryPantryCategory",
+                column: "PantriesId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RecipeCategoryRecipeCategory_SubcategoriesId",
@@ -657,11 +478,6 @@ namespace MealsManager.Persistance.Migrations
                 column: "RecipesId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Recipes_CuisineId",
-                table: "Recipes",
-                column: "CuisineId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Recipes_IngredientId",
                 table: "Recipes",
                 column: "IngredientId");
@@ -674,19 +490,7 @@ namespace MealsManager.Persistance.Migrations
                 name: "CookbookCategories");
 
             migrationBuilder.DropTable(
-                name: "CookbookCategoryChildren");
-
-            migrationBuilder.DropTable(
-                name: "CookbookRecipes");
-
-            migrationBuilder.DropTable(
                 name: "CookingSteps");
-
-            migrationBuilder.DropTable(
-                name: "CuisineIngredient");
-
-            migrationBuilder.DropTable(
-                name: "IngredientCategoryIngredientCategory");
 
             migrationBuilder.DropTable(
                 name: "IngredientIngredientCategory");
@@ -695,13 +499,7 @@ namespace MealsManager.Persistance.Migrations
                 name: "MealPlanRecipe");
 
             migrationBuilder.DropTable(
-                name: "PantryCategories");
-
-            migrationBuilder.DropTable(
-                name: "PantryCategoryChildren");
-
-            migrationBuilder.DropTable(
-                name: "PantryCategoryIngredients");
+                name: "PantryPantryCategory");
 
             migrationBuilder.DropTable(
                 name: "RecipeCategoryRecipeCategory");
@@ -716,19 +514,16 @@ namespace MealsManager.Persistance.Migrations
                 name: "Cookbooks");
 
             migrationBuilder.DropTable(
-                name: "CookingStepType");
+                name: "IngredientCategories");
 
             migrationBuilder.DropTable(
                 name: "MealPlans");
 
             migrationBuilder.DropTable(
-                name: "IngredientCategories");
-
-            migrationBuilder.DropTable(
                 name: "Pantries");
 
             migrationBuilder.DropTable(
-                name: "IngredientUnits");
+                name: "PantryCategories");
 
             migrationBuilder.DropTable(
                 name: "RecipeCategories");
@@ -737,7 +532,7 @@ namespace MealsManager.Persistance.Migrations
                 name: "Recipes");
 
             migrationBuilder.DropTable(
-                name: "Cuisines");
+                name: "IngredientUnits");
 
             migrationBuilder.DropTable(
                 name: "Ingredients");

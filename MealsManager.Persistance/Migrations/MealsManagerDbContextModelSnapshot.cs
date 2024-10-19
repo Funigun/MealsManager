@@ -22,51 +22,6 @@ namespace MealsManager.Persistance.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("CookbookCategories", b =>
-                {
-                    b.Property<int>("CategoriesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CookbookId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CategoriesId", "CookbookId");
-
-                    b.HasIndex("CookbookId");
-
-                    b.ToTable("CookbookCategories");
-                });
-
-            modelBuilder.Entity("CuisineIngredient", b =>
-                {
-                    b.Property<int>("CuisinesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IngredientsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CuisinesId", "IngredientsId");
-
-                    b.HasIndex("IngredientsId");
-
-                    b.ToTable("CuisineIngredient");
-                });
-
-            modelBuilder.Entity("IngredientCategoryIngredientCategory", b =>
-                {
-                    b.Property<int>("ParentCategoriesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SubcategoriesId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ParentCategoriesId", "SubcategoriesId");
-
-                    b.HasIndex("SubcategoriesId");
-
-                    b.ToTable("IngredientCategoryIngredientCategory");
-                });
-
             modelBuilder.Entity("IngredientIngredientCategory", b =>
                 {
                     b.Property<int>("CategoriesId")
@@ -101,9 +56,32 @@ namespace MealsManager.Persistance.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnOrder(0);
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("InactivatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InavtivatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("StatusId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -115,49 +93,37 @@ namespace MealsManager.Persistance.Migrations
                     b.ToTable("Cookbooks");
                 });
 
-            modelBuilder.Entity("MealsManager.Domain.Entities.CookbookCategoryChild", b =>
+            modelBuilder.Entity("MealsManager.Domain.Entities.CookbookCategory", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<int>("CookbookId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("ChildCategoryId")
+                    b.Property<int?>("ParentCategoryId")
                         .HasColumnType("int");
 
                     b.Property<int?>("RecipeId")
                         .HasColumnType("int");
 
-                    b.HasKey("CookbookId", "CategoryId", "ChildCategoryId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("CookbookId");
 
-                    b.HasIndex("ChildCategoryId");
-
-                    b.HasIndex("RecipeId");
-
-                    b.ToTable("CookbookCategoryChildren", (string)null);
-                });
-
-            modelBuilder.Entity("MealsManager.Domain.Entities.CookbookCategoryRecipe", b =>
-                {
-                    b.Property<int>("CookbookId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RecipeId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CookbookId", "RecipeId");
-
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("ParentCategoryId");
 
                     b.HasIndex("RecipeId");
 
-                    b.ToTable("CookbookRecipes", (string)null);
+                    b.ToTable("CookbookCategories");
                 });
 
             modelBuilder.Entity("MealsManager.Domain.Entities.CookingStep", b =>
@@ -168,9 +134,6 @@ namespace MealsManager.Persistance.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CookingStepTypeId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(1000)
@@ -179,61 +142,54 @@ namespace MealsManager.Persistance.Migrations
                     b.Property<string>("ImageURL")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RecipeId")
+                    b.Property<int?>("RecipeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StepType")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CookingStepTypeId");
 
                     b.HasIndex("RecipeId");
 
                     b.ToTable("CookingSteps", (string)null);
                 });
 
-            modelBuilder.Entity("MealsManager.Domain.Entities.CookingStepType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CookingStepType");
-                });
-
-            modelBuilder.Entity("MealsManager.Domain.Entities.Cuisine", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Cuisines");
-                });
-
             modelBuilder.Entity("MealsManager.Domain.Entities.Ingredient", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnOrder(0);
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("InactivatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InavtivatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
+
+                    b.Property<int>("StatusId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -248,12 +204,17 @@ namespace MealsManager.Persistance.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("IngredientCategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IngredientCategoryId");
 
                     b.ToTable("IngredientCategories");
                 });
@@ -268,8 +229,8 @@ namespace MealsManager.Persistance.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -284,12 +245,34 @@ namespace MealsManager.Persistance.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateOnly>("From")
                         .HasColumnType("date");
+
+                    b.Property<DateTime?>("InactivatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InavtivatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StatusId")
+                        .HasColumnType("int");
 
                     b.Property<DateOnly>("To")
                         .HasColumnType("date");
@@ -317,56 +300,7 @@ namespace MealsManager.Persistance.Migrations
                     b.ToTable("Pantries");
                 });
 
-            modelBuilder.Entity("MealsManager.Domain.Entities.PantryCategoryChild", b =>
-                {
-                    b.Property<int>("PantryId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ChildCategoryId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PantryId", "CategoryId", "ChildCategoryId");
-
-                    b.HasIndex("CategoryId");
-
-                    b.HasIndex("ChildCategoryId");
-
-                    b.ToTable("PantryCategoryChildren", (string)null);
-                });
-
-            modelBuilder.Entity("MealsManager.Domain.Entities.PantryCategoryIngredient", b =>
-                {
-                    b.Property<int>("PantryId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("IngredientCategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IngredientId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IngredientUnitId")
-                        .HasColumnType("int");
-
-                    b.Property<double>("Amount")
-                        .HasColumnType("float");
-
-                    b.HasKey("PantryId", "IngredientCategoryId", "IngredientId", "IngredientUnitId");
-
-                    b.HasIndex("IngredientCategoryId");
-
-                    b.HasIndex("IngredientId")
-                        .IsUnique();
-
-                    b.HasIndex("IngredientUnitId");
-
-                    b.ToTable("PantryCategoryIngredients");
-                });
-
-            modelBuilder.Entity("MealsManager.Domain.Entities.Recipe", b =>
+            modelBuilder.Entity("MealsManager.Domain.Entities.PantryCategory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -374,25 +308,86 @@ namespace MealsManager.Persistance.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<double>("IngredientAmount")
+                        .HasColumnType("float");
+
+                    b.Property<int?>("IngredientId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("IngredientUnitId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int?>("ParentCategoryId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IngredientId")
+                        .IsUnique()
+                        .HasFilter("[IngredientId] IS NOT NULL");
+
+                    b.HasIndex("IngredientUnitId");
+
+                    b.HasIndex("ParentCategoryId");
+
+                    b.ToTable("PantryCategories");
+                });
+
+            modelBuilder.Entity("MealsManager.Domain.Entities.Recipe", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnOrder(0);
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<int>("Amount")
                         .HasColumnType("int");
 
-                    b.Property<int>("CuisineId")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
+                    b.Property<int>("Difficulty")
+                        .HasColumnType("int");
+
                     b.Property<string>("ImageURL")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("InactivatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InavtivatedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("IngredientId")
                         .HasColumnType("int");
 
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<byte>("NumberOfServings")
                         .HasColumnType("tinyint");
+
+                    b.Property<int>("StatusId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -403,8 +398,6 @@ namespace MealsManager.Persistance.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CuisineId");
 
                     b.HasIndex("IngredientId");
 
@@ -421,8 +414,8 @@ namespace MealsManager.Persistance.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -452,19 +445,19 @@ namespace MealsManager.Persistance.Migrations
                     b.ToTable("RecipeIngredients");
                 });
 
-            modelBuilder.Entity("PantryCategories", b =>
+            modelBuilder.Entity("PantryPantryCategory", b =>
                 {
                     b.Property<int>("CategoriesId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PantryId")
+                    b.Property<int>("PantriesId")
                         .HasColumnType("int");
 
-                    b.HasKey("CategoriesId", "PantryId");
+                    b.HasKey("CategoriesId", "PantriesId");
 
-                    b.HasIndex("PantryId");
+                    b.HasIndex("PantriesId");
 
-                    b.ToTable("PantryCategories");
+                    b.ToTable("PantryPantryCategory");
                 });
 
             modelBuilder.Entity("RecipeCategoryRecipeCategory", b =>
@@ -497,51 +490,6 @@ namespace MealsManager.Persistance.Migrations
                     b.ToTable("RecipeRecipeCategory");
                 });
 
-            modelBuilder.Entity("CookbookCategories", b =>
-                {
-                    b.HasOne("MealsManager.Domain.Entities.RecipeCategory", null)
-                        .WithMany()
-                        .HasForeignKey("CategoriesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MealsManager.Domain.Entities.Cookbook", null)
-                        .WithMany()
-                        .HasForeignKey("CookbookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("CuisineIngredient", b =>
-                {
-                    b.HasOne("MealsManager.Domain.Entities.Cuisine", null)
-                        .WithMany()
-                        .HasForeignKey("CuisinesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MealsManager.Domain.Entities.Ingredient", null)
-                        .WithMany()
-                        .HasForeignKey("IngredientsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("IngredientCategoryIngredientCategory", b =>
-                {
-                    b.HasOne("MealsManager.Domain.Entities.IngredientCategory", null)
-                        .WithMany()
-                        .HasForeignKey("ParentCategoriesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MealsManager.Domain.Entities.IngredientCategory", null)
-                        .WithMany()
-                        .HasForeignKey("SubcategoriesId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("IngredientIngredientCategory", b =>
                 {
                     b.HasOne("MealsManager.Domain.Entities.IngredientCategory", null)
@@ -572,155 +520,71 @@ namespace MealsManager.Persistance.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MealsManager.Domain.Entities.CookbookCategoryChild", b =>
+            modelBuilder.Entity("MealsManager.Domain.Entities.CookbookCategory", b =>
                 {
-                    b.HasOne("MealsManager.Domain.Entities.RecipeCategory", "Category")
-                        .WithMany("CookbookCategories")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("MealsManager.Domain.Entities.RecipeCategory", "ChildCategory")
-                        .WithMany("CookbookCategoryChildren")
-                        .HasForeignKey("ChildCategoryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("MealsManager.Domain.Entities.Cookbook", "Cookbook")
-                        .WithMany("CategoryChildren")
+                        .WithMany("Categories")
                         .HasForeignKey("CookbookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MealsManager.Domain.Entities.Recipe", null)
-                        .WithMany("CookbookCategoryChildren")
-                        .HasForeignKey("RecipeId");
-
-                    b.Navigation("Category");
-
-                    b.Navigation("ChildCategory");
-
-                    b.Navigation("Cookbook");
-                });
-
-            modelBuilder.Entity("MealsManager.Domain.Entities.CookbookCategoryRecipe", b =>
-                {
-                    b.HasOne("MealsManager.Domain.Entities.RecipeCategory", "RecipeCategory")
-                        .WithMany("CookbookCategoryRecipes")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.HasOne("MealsManager.Domain.Entities.Cookbook", "Cookbook")
-                        .WithMany("CategoryRecipes")
-                        .HasForeignKey("CookbookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("MealsManager.Domain.Entities.CookbookCategory", "ParentCategory")
+                        .WithMany("Subcategories")
+                        .HasForeignKey("ParentCategoryId");
 
                     b.HasOne("MealsManager.Domain.Entities.Recipe", "Recipe")
-                        .WithMany("CookbookCategoryRecipes")
-                        .HasForeignKey("RecipeId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("RecipeId");
 
                     b.Navigation("Cookbook");
 
-                    b.Navigation("Recipe");
+                    b.Navigation("ParentCategory");
 
-                    b.Navigation("RecipeCategory");
+                    b.Navigation("Recipe");
                 });
 
             modelBuilder.Entity("MealsManager.Domain.Entities.CookingStep", b =>
                 {
-                    b.HasOne("MealsManager.Domain.Entities.CookingStepType", "StepType")
-                        .WithMany("Steps")
-                        .HasForeignKey("CookingStepTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MealsManager.Domain.Entities.Recipe", "Recipe")
+                    b.HasOne("MealsManager.Domain.Entities.Recipe", null)
                         .WithMany("CookingSteps")
-                        .HasForeignKey("RecipeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Recipe");
-
-                    b.Navigation("StepType");
+                        .HasForeignKey("RecipeId");
                 });
 
-            modelBuilder.Entity("MealsManager.Domain.Entities.PantryCategoryChild", b =>
+            modelBuilder.Entity("MealsManager.Domain.Entities.IngredientCategory", b =>
                 {
-                    b.HasOne("MealsManager.Domain.Entities.IngredientCategory", "Category")
-                        .WithMany("PantryCategories")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("MealsManager.Domain.Entities.IngredientCategory", "ChildCategory")
-                        .WithMany("PantryCategoryChildren")
-                        .HasForeignKey("ChildCategoryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("MealsManager.Domain.Entities.Pantry", "Pantry")
-                        .WithMany("CategoryChildren")
-                        .HasForeignKey("PantryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-
-                    b.Navigation("ChildCategory");
-
-                    b.Navigation("Pantry");
+                    b.HasOne("MealsManager.Domain.Entities.IngredientCategory", null)
+                        .WithMany("Subcategories")
+                        .HasForeignKey("IngredientCategoryId");
                 });
 
-            modelBuilder.Entity("MealsManager.Domain.Entities.PantryCategoryIngredient", b =>
+            modelBuilder.Entity("MealsManager.Domain.Entities.PantryCategory", b =>
                 {
-                    b.HasOne("MealsManager.Domain.Entities.IngredientCategory", "IngredientCategory")
-                        .WithMany("PantryCategoryIngredients")
-                        .HasForeignKey("IngredientCategoryId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
                     b.HasOne("MealsManager.Domain.Entities.Ingredient", "Ingredient")
                         .WithOne("PantryCategory")
-                        .HasForeignKey("MealsManager.Domain.Entities.PantryCategoryIngredient", "IngredientId")
-                        .OnDelete(DeleteBehavior.ClientCascade);
+                        .HasForeignKey("MealsManager.Domain.Entities.PantryCategory", "IngredientId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("MealsManager.Domain.Entities.IngredientUnit", "IngredientUnit")
                         .WithMany("PantryIngredients")
                         .HasForeignKey("IngredientUnitId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("MealsManager.Domain.Entities.Pantry", "Pantry")
-                        .WithMany("CategoryIngredients")
-                        .HasForeignKey("PantryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("MealsManager.Domain.Entities.PantryCategory", "ParentCategory")
+                        .WithMany("Subcategories")
+                        .HasForeignKey("ParentCategoryId");
 
                     b.Navigation("Ingredient");
 
-                    b.Navigation("IngredientCategory");
-
                     b.Navigation("IngredientUnit");
 
-                    b.Navigation("Pantry");
+                    b.Navigation("ParentCategory");
                 });
 
             modelBuilder.Entity("MealsManager.Domain.Entities.Recipe", b =>
                 {
-                    b.HasOne("MealsManager.Domain.Entities.Cuisine", "Cuisine")
-                        .WithMany("Recipes")
-                        .HasForeignKey("CuisineId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("MealsManager.Domain.Entities.Ingredient", "Ingredient")
                         .WithMany("Recipes")
                         .HasForeignKey("IngredientId");
-
-                    b.Navigation("Cuisine");
 
                     b.Navigation("Ingredient");
                 });
@@ -752,9 +616,9 @@ namespace MealsManager.Persistance.Migrations
                     b.Navigation("Recipe");
                 });
 
-            modelBuilder.Entity("PantryCategories", b =>
+            modelBuilder.Entity("PantryPantryCategory", b =>
                 {
-                    b.HasOne("MealsManager.Domain.Entities.IngredientCategory", null)
+                    b.HasOne("MealsManager.Domain.Entities.PantryCategory", null)
                         .WithMany()
                         .HasForeignKey("CategoriesId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -762,7 +626,7 @@ namespace MealsManager.Persistance.Migrations
 
                     b.HasOne("MealsManager.Domain.Entities.Pantry", null)
                         .WithMany()
-                        .HasForeignKey("PantryId")
+                        .HasForeignKey("PantriesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -799,19 +663,12 @@ namespace MealsManager.Persistance.Migrations
 
             modelBuilder.Entity("MealsManager.Domain.Entities.Cookbook", b =>
                 {
-                    b.Navigation("CategoryChildren");
-
-                    b.Navigation("CategoryRecipes");
+                    b.Navigation("Categories");
                 });
 
-            modelBuilder.Entity("MealsManager.Domain.Entities.CookingStepType", b =>
+            modelBuilder.Entity("MealsManager.Domain.Entities.CookbookCategory", b =>
                 {
-                    b.Navigation("Steps");
-                });
-
-            modelBuilder.Entity("MealsManager.Domain.Entities.Cuisine", b =>
-                {
-                    b.Navigation("Recipes");
+                    b.Navigation("Subcategories");
                 });
 
             modelBuilder.Entity("MealsManager.Domain.Entities.Ingredient", b =>
@@ -825,11 +682,7 @@ namespace MealsManager.Persistance.Migrations
 
             modelBuilder.Entity("MealsManager.Domain.Entities.IngredientCategory", b =>
                 {
-                    b.Navigation("PantryCategories");
-
-                    b.Navigation("PantryCategoryChildren");
-
-                    b.Navigation("PantryCategoryIngredients");
+                    b.Navigation("Subcategories");
                 });
 
             modelBuilder.Entity("MealsManager.Domain.Entities.IngredientUnit", b =>
@@ -839,31 +692,16 @@ namespace MealsManager.Persistance.Migrations
                     b.Navigation("RecipeIngredients");
                 });
 
-            modelBuilder.Entity("MealsManager.Domain.Entities.Pantry", b =>
+            modelBuilder.Entity("MealsManager.Domain.Entities.PantryCategory", b =>
                 {
-                    b.Navigation("CategoryChildren");
-
-                    b.Navigation("CategoryIngredients");
+                    b.Navigation("Subcategories");
                 });
 
             modelBuilder.Entity("MealsManager.Domain.Entities.Recipe", b =>
                 {
-                    b.Navigation("CookbookCategoryChildren");
-
-                    b.Navigation("CookbookCategoryRecipes");
-
                     b.Navigation("CookingSteps");
 
                     b.Navigation("Ingredients");
-                });
-
-            modelBuilder.Entity("MealsManager.Domain.Entities.RecipeCategory", b =>
-                {
-                    b.Navigation("CookbookCategories");
-
-                    b.Navigation("CookbookCategoryChildren");
-
-                    b.Navigation("CookbookCategoryRecipes");
                 });
 #pragma warning restore 612, 618
         }

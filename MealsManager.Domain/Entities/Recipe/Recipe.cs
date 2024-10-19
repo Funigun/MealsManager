@@ -1,8 +1,10 @@
-﻿namespace MealsManager.Domain.Entities
+﻿using MealsManager.Domain.Common;
+using MealsManager.Domain.Enums;
+
+namespace MealsManager.Domain.Entities
 {
-    public class Recipe
+    public class Recipe : AuditableEntity
     {
-        public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
 
@@ -11,14 +13,12 @@
         public int Amount { get; set; }
         public byte NumberOfServings { get; set; }
 
-        public int CuisineId {  get; set; }
-        public Cuisine Cuisine { get; set; }
 
         public int? IngredientId { get; set; }
         public Ingredient? Ingredient { get; set; }
 
-        public ICollection<CookbookCategoryChild> CookbookCategoryChildren { get; set; } = [];
-        public ICollection<CookbookCategoryRecipe> CookbookCategoryRecipes { get; set; } = [];
+        public RecipeDifficulty Difficulty { get; set; }
+
         public ICollection<RecipeCategory> Categories { get; set; } = [];
         public ICollection<RecipeIngredient> Ingredients { get; set; } = [];
         public ICollection<CookingStep> CookingSteps { get; set; } = [];
