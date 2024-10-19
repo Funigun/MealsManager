@@ -9,6 +9,7 @@ internal class IngredientConfiguration : IEntityTypeConfiguration<Ingredient>
 {
     public void Configure(EntityTypeBuilder<Ingredient> builder)
     {
+        builder.Property(p => p.Id).HasColumnOrder(0);
         builder.Property(p => p.Name).HasMaxLength(150);
     }
 }

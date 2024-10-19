@@ -1,8 +1,9 @@
-﻿namespace MealsManager.Domain.Entities;
+﻿using MealsManager.Domain.Common;
 
-public class Ingredient
+namespace MealsManager.Domain.Entities;
+
+public class Ingredient : AuditableEntity
 {
-    public int Id { get; private set; }
     public string Name { get; set; }
 
     public PantryCategory? PantryCategory { get; set; }

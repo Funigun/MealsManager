@@ -10,6 +10,8 @@ public class AuditableEntity
     public string? ModifiedBy { get; set; }
     public DateTime? ModifiedOn { get; set; }
 
+    //TODO
+    //Consider status that will allow to physically remove records
     public int StatusId { get; set; }
     public string? InavtivatedBy { get; set; }
     public DateTime? InactivatedOn { get; set; }

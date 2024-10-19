@@ -1,10 +1,10 @@
-﻿using MealsManager.Domain.Enums;
+﻿using MealsManager.Domain.Common;
+using MealsManager.Domain.Enums;
 
 namespace MealsManager.Domain.Entities
 {
-    public class Recipe
+    public class Recipe : AuditableEntity
     {
-        public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
 

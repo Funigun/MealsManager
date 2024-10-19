@@ -1,8 +1,9 @@
-﻿namespace MealsManager.Domain.Entities;
+﻿using MealsManager.Domain.Common;
 
-public class Cookbook
+namespace MealsManager.Domain.Entities;
+
+public class Cookbook : AuditableEntity
 {
-    public int Id { get; set; }
     public string Title { get; set; }
 
     public ICollection<RecipeCategory> Categories { get; set; } = [];

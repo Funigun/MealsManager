@@ -1,11 +1,15 @@
-﻿using MealsManager.Domain.Entities;
+﻿using MealsManager.Application.Interfaces;
+using MealsManager.Domain.Common;
+using MealsManager.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 namespace MealsManager.Persistance
 {
-    public class MealsManagerDbContext(DbContextOptions<MealsManagerDbContext> options) : DbContext(options)
+    public class MealsManagerDbContext(DbContextOptions<MealsManagerDbContext> options, IDateTime dateTimeService) : DbContext(options)
     {
+        private IDateTime _dateTimeService = dateTimeService;
+
         public DbSet<Cookbook> Cookbooks { get; set; }
         public DbSet<CookbookCategory> CookbookCategories { get; set; }
 
@@ -25,6 +29,41 @@ namespace MealsManager.Persistance
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        }
+
+        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
+        {
+            UpdateEntities();
+            return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+        }
+
+        private void UpdateEntities()
+        {
+            foreach (var entry in ChangeTracker.Entries<AuditableEntity>())
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Added:
+                        entry.Entity.CreatedBy = "";
+                        entry.Entity.CreatedOn = _dateTimeService.Now;
+                        entry.Entity.StatusId = 1;
+                        break;
+
+                    case EntityState.Modified:
+                        entry.Entity.ModifiedBy = "";
+                        entry.Entity.ModifiedOn = _dateTimeService.Now;
+                        break;
+
+                    case EntityState.Deleted:
+                        entry.Entity.ModifiedBy = "";
+                        entry.Entity.ModifiedOn = _dateTimeService.Now;
+                        entry.Entity.InavtivatedBy = "";
+                        entry.Entity.InactivatedOn = _dateTimeService.Now;
+                        entry.Entity.StatusId = 0;
+                        entry.State = EntityState.Modified;
+                        break;
+                }
+            }
         }
     }
 }

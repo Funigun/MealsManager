@@ -9,7 +9,9 @@ internal class RecipeConfiguration : IEntityTypeConfiguration<Recipe>
 {
     public void Configure(EntityTypeBuilder<Recipe> builder)
     {
+        builder.Property(p => p.Id).HasColumnOrder(0);
         builder.Property(p => p.Title).HasMaxLength(250).IsRequired();
-        builder.Property(p => p.Description).HasMaxLength(1000);  
+        builder.Property(p => p.Description).HasMaxLength(1000);
+
     }
 }
