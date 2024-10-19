@@ -7,29 +7,26 @@ internal class PantryCategoryConfiguration : IEntityTypeConfiguration<PantryCate
 {
     public void Configure(EntityTypeBuilder<PantryCategory> builder)
     {
-        builder.ToTable("PantryCategories");
-
-        builder.HasKey(p => p.Id);
-
-        builder.Property(p => p.Name).HasMaxLength(100).IsRequired();
-        builder.Property(p => p.IngredientId).IsRequired(false);
+        builder.Property(p => p.Name).HasMaxLength(100);
 
         builder.HasOne<PantryCategory>()
                .WithMany(p => p.Subcategories)
-               .IsRequired(false)
-               .HasForeignKey("SubcategoryId");
+               .HasForeignKey("SubcategoryId")
+               .IsRequired(false);
 
         builder.HasMany(p => p.Pantries)
                .WithMany(p => p.Categories);
 
         builder.HasOne(p => p.Ingredient)
                .WithMany()
+               .HasForeignKey(p => p.IngredientId)
                .IsRequired(false)
-               .HasForeignKey(p => p.IngredientId);
+               .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne(p => p.IngredientUnit)
                .WithMany()
+               .HasForeignKey(p => p.IngredientUnitId)
                .IsRequired(false)
-               .HasForeignKey(p => p.IngredientUnitId);
+               .OnDelete(DeleteBehavior.Restrict);
     }
 }

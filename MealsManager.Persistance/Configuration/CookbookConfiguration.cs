@@ -8,7 +8,7 @@ internal class CookbookConfiguration : IEntityTypeConfiguration<Cookbook>
 {
     public void Configure(EntityTypeBuilder<Cookbook> builder)
     {
-        builder.Property(p => p.Title).HasMaxLength(250).IsRequired();
+        builder.Property(p => p.Title).HasMaxLength(250);
 
         builder.HasMany(c => c.Categories)
                .WithMany()

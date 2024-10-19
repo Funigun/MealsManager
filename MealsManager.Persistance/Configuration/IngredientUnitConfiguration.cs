@@ -9,6 +9,18 @@ internal class IngredientUnitConfiguration : IEntityTypeConfiguration<Ingredient
 {
     public void Configure(EntityTypeBuilder<IngredientUnit> builder)
     {
-        builder.Property(p => p.Name).HasMaxLength(100).IsRequired();
+        builder.Property(p => p.Name).HasMaxLength(50);
+
+        builder.HasMany(i => i.RecipeIngredients)
+               .WithOne(p => p.IngredientUnit)
+               .HasForeignKey(p =>  p.IngredientUnitId)
+               .IsRequired()
+               .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(i => i.PantryIngredients)
+               .WithOne(p => p.IngredientUnit)
+               .HasForeignKey(p => p.IngredientUnitId)
+               .IsRequired()
+               .OnDelete(DeleteBehavior.Restrict);
     }
 }

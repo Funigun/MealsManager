@@ -10,7 +10,6 @@ internal class CookingStepConfiguration : IEntityTypeConfiguration<CookingStep>
     {
         builder.ToTable("CookingSteps");
 
-        builder.Property(p => p.CookingStepTypeId).IsRequired();
         builder.Property(p => p.Description).HasMaxLength(1000);
     }
 }

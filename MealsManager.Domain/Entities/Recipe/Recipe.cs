@@ -1,4 +1,6 @@
-﻿namespace MealsManager.Domain.Entities
+﻿using MealsManager.Domain.Enums;
+
+namespace MealsManager.Domain.Entities
 {
     public class Recipe
     {
@@ -11,12 +13,11 @@
         public int Amount { get; set; }
         public byte NumberOfServings { get; set; }
 
-        public int CuisineId {  get; set; }
-        public Cuisine Cuisine { get; set; }
 
         public int? IngredientId { get; set; }
         public Ingredient? Ingredient { get; set; }
 
+        public RecipeDifficulty Difficulty { get; set; }
 
         public ICollection<RecipeCategory> Categories { get; set; } = [];
         public ICollection<RecipeIngredient> Ingredients { get; set; } = [];

@@ -20,7 +20,6 @@ namespace MealsManager.Persistance
         public DbSet<Pantry> Pantries { get; set; }
         public DbSet<PantryCategory> PantryCategories { get; set; }
 
-        public DbSet<Cuisine> Cuisines { get; set; }
         public DbSet<MealPlan> MealPlans { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

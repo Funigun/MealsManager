@@ -9,11 +9,6 @@ internal class RecipeIngredientConfiguration : IEntityTypeConfiguration<RecipeIn
 {
     public void Configure(EntityTypeBuilder<RecipeIngredient> builder)
     {
-        builder.Property(p => p.RecipeId).IsRequired();
-        builder.Property(p => p.IngredientId).IsRequired();
-        builder.Property(p => p.IngredientUnitId).IsRequired();
-        builder.Property(p => p.Amount).IsRequired();
-
         builder.HasKey(p => new { p.RecipeId, p.IngredientId, p.IngredientUnitId });
 
         builder.HasOne(rc => rc.Recipe)

@@ -8,12 +8,8 @@ internal class CookbookCategoryConfiguration : IEntityTypeConfiguration<Cookbook
 {
     public void Configure(EntityTypeBuilder<CookbookCategory> builder)
     {
-        builder.ToTable("CookbookCategories");
+        builder.Property(p => p.Name).HasMaxLength(100);
 
-        builder.Property(p => p.Id).IsRequired();
-        builder.Property(p => p.Name).HasMaxLength(100).IsRequired();
-
-        builder.HasKey(p => p.Id);
 
         builder.HasOne(cc => cc.Cookbook)
                .WithMany()
